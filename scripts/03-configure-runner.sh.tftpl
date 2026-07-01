@@ -2,4 +2,8 @@
 set -euo pipefail
 cd /root/actions-runner
 export RUNNER_ALLOW_RUNASROOT=1
+if [ -f .runner ]; then
+  echo "already configured, skipping"
+  exit 0
+fi
 ./config.sh --url "${repo_url}" --token "${reg_token}" --labels dedalus --name "${runner_name}" --unattended --replace

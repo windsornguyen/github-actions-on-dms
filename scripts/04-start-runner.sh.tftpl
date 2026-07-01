@@ -2,7 +2,11 @@
 set -euo pipefail
 export RUNNER_ALLOW_RUNASROOT=1
 cd /root/actions-runner
+if pgrep -f '[R]unner.Listener' > /dev/null; then
+  echo "already running, skipping"
+  exit 0
+fi
 nohup ./run.sh > /root/actions-runner/run.log 2>&1 < /dev/null &
 disown
 sleep 3
-ps aux | grep '[r]un.sh runsvc' || ps aux | grep '[R]unner.Listener'
+pgrep -f '[R]unner.Listener'
