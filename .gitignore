@@ -4,3 +4,4 @@
 *.tfvars
 crash.log
 scripts/wait-for-execution/wait-for-execution
+node_modules/
