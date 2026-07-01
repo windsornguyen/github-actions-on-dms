@@ -1,23 +1,10 @@
 {
   "name": "github-actions-on-dms",
   "version": "1.0.0",
-  "description": "GitHub Actions self-hosted runner running on a [Dedalus Machine](https://dedaluslabs.ai), provisioned entirely with the [Dedalus Terraform provider](https://github.com/dedalus-labs/terraform-provider-dedalus).",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/windsornguyen/github-actions-on-dms.git"
-  },
-  "keywords": [],
-  "author": "",
+  "description": "GitHub Actions self-hosted runner on a Dedalus Machine",
+  "private": true,
+  "type": "module",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/windsornguyen/github-actions-on-dms/issues"
-  },
-  "homepage": "https://github.com/windsornguyen/github-actions-on-dms#readme",
   "devDependencies": {
     "@dedalus-labs/hollywood": "^0.1.0-alpha.1",
     "typescript": "^6.0.3"
