@@ -19,8 +19,13 @@ jobs:
           uname -a
           cat /etc/os-release
           mount | grep dedalusfs
+  teardown:
+    runs-on: ubuntu-latest
+    needs: hello-from-dm
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: Teardown Dedalus Machine
-        if: ${{ always() }}
         uses: ./.github/actions/dedalus/teardown-machine
         with:
           machine-id: ${{ vars.DM_MACHINE_ID }}
