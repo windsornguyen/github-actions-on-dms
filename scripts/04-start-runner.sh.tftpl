@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+export RUNNER_ALLOW_RUNASROOT=1
+cd /root/actions-runner
+nohup ./run.sh > /root/actions-runner/run.log 2>&1 < /dev/null &
+disown
+sleep 3
+ps aux | grep '[r]un.sh runsvc' || ps aux | grep '[R]unner.Listener'

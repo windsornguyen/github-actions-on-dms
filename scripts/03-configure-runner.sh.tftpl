@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+cd /root/actions-runner
+export RUNNER_ALLOW_RUNASROOT=1
+./config.sh --url "${repo_url}" --token "${reg_token}" --labels dedalus --name "${runner_name}" --unattended --replace

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+# Own tmpfs mount, not the dedalusfs root and not the fixed-size /dev/shm:
+# extracting a real multi-hundred-file archive onto dedalusfs wedges the
+# guest (see ENG-557), and /dev/shm's default size (476M) doesn't scale
+# with the machine's configured memory and is too tight for the unpacked
+# runner. The runner install is disposable per-boot anyway, so tmpfs is
+# the right place for it regardless.
+mkdir -p /mnt/runner-tmpfs
+mount -t tmpfs -o size=2G tmpfs /mnt/runner-tmpfs
+ln -sfn /mnt/runner-tmpfs /root/actions-runner
+cd /root/actions-runner
+curl -fsSL -o runner.tar.gz \
+  "https://github.com/actions/runner/releases/download/v${runner_version}/actions-runner-linux-x64-${runner_version}.tar.gz"
+tar xzf runner.tar.gz
+rm runner.tar.gz
+ls config.sh run.sh
