@@ -31842,17 +31842,13 @@ var teardownMachine = action({
   run: async ({ exec: exec2, input, log }) => {
     log.info(`scheduling destroy of ${input.machineId} in 15s`);
     const script = [
-      "(",
-      "sleep 15 &&",
-      "curl -fsSL -X DELETE",
-      `-H 'Authorization: Bearer ${input.dedalusApiKey}'`,
-      `-H 'Idempotency-Key: teardown-${input.machineId}-${Date.now()}'`,
-      `'${input.dedalusBaseUrl}/v1/machines/${input.machineId}'`,
-      ")",
+      "setsid bash -c",
+      `"sleep 15 && curl -fsSL -X DELETE -H 'Authorization: Bearer ${input.dedalusApiKey}' -H 'Idempotency-Key: teardown-${input.machineId}-${Date.now()}' '${input.dedalusBaseUrl}/v1/machines/${input.machineId}'"`,
       "> /root/teardown.log 2>&1 < /dev/null &",
       "disown"
     ].join(" ");
     await exec2("bash", ["-c", script]);
+    return {};
   }
 });
 
